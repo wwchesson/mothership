@@ -1,9 +1,10 @@
-import React from 'react'
-
 const Mission = () => {
   return (
-    <div>Mission</div>
-  )
-}
+    <div className="text-gray-900" style={{ fontFamily: "Montserrat, sans-serif" }}>
+      {/* TODO: Insert mission statement */}
+      <p className="text-sm leading-relaxed">Mission statement coming soon.</p>
+    </div>
+  );
+};
 
-export default Mission
+export default Mission;
