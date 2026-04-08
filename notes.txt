@@ -1,0 +1,18 @@
+original svg
+
+          <svg
+            className="w-[40vw] "
+            viewBox="0 0 400 130"
+            style={{ display: "block" }}
+          >
+            {/* Yellow — outermost stripe #facc15 */}
+            <polygon points="165,0 234,0 440,130 -35,132" fill="#facc15" />
+            {/* gap — transparent */}
+            <polygon points="163,0 237,0 410,130 0,132" fill="transparent" />
+            {/* Orange — middle stripe */}
+            <polygon points="168,0 231,0 420,130 -20,132" fill="#f97316" />
+            {/* gap — transparent */}
+            <polygon points="170,0 232,0 380,130 0,132" fill="transparent" />
+            {/* Blue — innermost fill */}
+            <polygon points="172,0 228,0 405,130 -5,132" fill="#2cb0d8" />
+          </svg>
