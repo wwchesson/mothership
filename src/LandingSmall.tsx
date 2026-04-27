@@ -28,7 +28,7 @@ const fills = [
 const TAB_ITEMS = ["mission", "contact", "donate", "tickets"] as const;
 type Tab = "mission" | "contact" | "donate";
 
-const Landing = () => {
+const LandingSmall = () => {
   const isTablet = useMediaQuery({ query: "(min-width: 601px)" });
   const isDesktop = useMediaQuery({ query: "(min-width: 1280px)" });
   const isMobileSm = useMediaQuery({ query: "(max-width: 460px)" });
@@ -52,39 +52,39 @@ const Landing = () => {
   //mobile small and large
 
   //top-left, top-right, bottom-right, bottom-left
-  const getPoints = () => {
-    if (isDesktop)
-      return [
-        "165,0 234,0 485,180 -80,180",
-        "163,0 237,0 410,180 0,180",
-        "168,0 231,0 455,180 -55,180",
-        "170,0 232,0 380,180 0,180",
-        "172,0 228,0 430,180 -30,180",
-      ];
-    if (isTablet)
-      return [
-        "165,0 234,0 525,180 -125,180", //yellow
-        "163,0 237,0 410,180 0,180", //transparent
-        "168,0 231,0 500,180 -100,180", //orange
-        "170,0 232,0 380,180 0,180", //transparent
-        "172,0 228,0 475,180 -75,180", //blue
-      ];
+  const getMobilePoints = () => {
+    // if (isDesktop)
+    //   return [
+    //     "165,0 234,0 485,180 -80,180",
+    //     "163,0 237,0 410,180 0,180",
+    //     "168,0 231,0 455,180 -55,180",
+    //     "170,0 232,0 380,180 0,180",
+    //     "172,0 228,0 430,180 -30,180",
+    //   ];
+    // if (isTablet)
+    //   return [
+    //     "165,0 234,0 525,180 -125,180", //yellow
+    //     "163,0 237,0 410,180 0,180", //transparent
+    //     "168,0 231,0 500,180 -100,180", //orange
+    //     "170,0 232,0 380,180 0,180", //transparent
+    //     "172,0 228,0 475,180 -75,180", //blue
+    //   ];
 
-      if(isMobileLg) {
-        return [
-          "165,0 234,0 495,180 -100,180", //yellow
-          "163,0 237,0 410,180 0,180",
-          "168,0 231,0 465,180 -75,180", //orange
-          "170,0 232,0 380,180 0,180",
-          "172,0 228,0 440,180 -50,180", //blue
-        ];
-      }
+    //   if(isMobileLg) {
+    //     return [
+    //       "165,0 234,0 495,180 -100,180", //yellow
+    //       "163,0 237,0 410,180 0,180",
+    //       "168,0 231,0 465,180 -75,180", //orange
+    //       "170,0 232,0 380,180 0,180",
+    //       "172,0 228,0 440,180 -50,180", //blue
+    //     ];
+    //   }
     return [
-      "165,0 234,0 485,180 -80,180",
+      "165,0 234,0 560,180 -155,180",
       "163,0 237,0 410,180 0,180",
-      "168,0 231,0 455,180 -55,180",
+      "168,0 231,0 530,180 -130,180", //orange
       "170,0 232,0 380,180 0,180",
-      "172,0 228,0 430,180 -30,180",
+      "172,0 228,0 500,180 -100,180",
     ];
   };
 
@@ -99,7 +99,7 @@ const Landing = () => {
     >
       <div className="flex flex-col items-center h-screen w-full  2xl:w-[30vw] mt-2 ">
         <div className="flex items-center w-full px-2">
-          {(isMobileSm || isMobileLg) && <HamburgerMenu onNavigate={handleNav} />}
+   <HamburgerMenu onNavigate={handleNav} />
 
           {/* Header */}
           <img
@@ -108,57 +108,43 @@ const Landing = () => {
           />
         </div>
 
-{/* Tablet and desktop navg */}
-        {!isMobileSm && !isMobileLg && (
-          <section className="flex gap-8 text-lg uppercase">
-            {TAB_ITEMS.map((item, idx) => (
-              <button
-                className={`text-white [filter:drop-shadow(0_0_4px_#fff)_drop-shadow(0_0_12px_#fff)_drop-shadow(0_0_30px_#fff)] mt-2 2xl:text-2xl cursor-pointer ${activeTab === item ? "underline" : ""}`}
-                style={{ fontFamily: "Montserrat, sans-serif" }}
-                key={idx}
-                onClick={() => handleNav(item)}
-              >
-                {item}
-              </button>
-            ))}
-          </section>
-        )}
+
 
         {/* <div className="absolute top-[5rem] text-left self-start">
           <img className="w-[4.5rem]" src={sunrastamp} />
         </div> */}
         <img
-        className="max-mobile:w-[55vw] mobile:w-[45vw] pb md:h-[7vh]  2xl:w-1/3 2xl:h-[5vh] mt-[1rem] z-10"
+        className="max-mobile:w-[55vw] mobile:w-[45vw] pb md:h-[7vh]   mt-[1rem] z-10"
           src={ufogold}
         />
         <section className="w-full relative flex flex-col items-center justify-center -mt-2">
           <svg
-            className="w-full md:w-[65vw] 2xl:w-[30vw] mobile:h-[20vh] md:h-[20vh] 2xl:h-[27.5vh]"
+            className="w-full h-[15vh] md:h-[20vh] 2xl:h-[27.5vh]  "
             viewBox="0 0 400 180"
             style={{ display: "block" }}
           >
-            {getPoints().map((pts, i) => (
+            {getMobilePoints().map((pts, i) => (
               <polygon key={i} points={pts} fill={fills[i]} />
             ))}
           </svg>
-          <img
+          {/* <img
             className="absolute mobile:h-[17.5vh] 2xl:w-[26vw] md:h-[20vh] 2xl:h-[25vh] mobile:ml-[1rem] max-mobile:ml-[1.5rem] sm:ml-[1.5rem] top-[0.75rem]"
             src={www}
-          />
+          /> */}
         </section>
 
         {/*CONTENT SECTION */}
-        <main className="relative bg-[#2cb0d8] w-full md:w-[65vw] 2xl:w-[30vw] h-full 2xl:h-[75vh] flex flex-col justify-between overflow-hidden z-30 -mt-1 ">
+        <main className="relative bg-[#2cb0d8] w-full  h-full flex flex-col  overflow-hidden z-30 -mt-1 ">
 
           {/* Mission statement overlaps heroes */}
-          <div className="relative z-20 bg-pink-300/80 p-4 w-[95%] md:w-[60vw] 2xl:w-[28vw] self-center mt-0 2xl:h-[32.5vh]">
+          <div className="relative z-20 bg-pink-300/90 p-1 w-full min-h-[25vh] self-center mt-0 ">
             {activeTab === "mission" && <Mission />}
             {activeTab === "contact" && <Contact />}
             {activeTab === "donate" && <Donate />}
           </div>
 
           {/*HEROES */}
-          <section className=":absolute flex top-[18rem] items-end justify-center w-full  mb-[0rem]">
+          <section className=" flex items-end justify-center w-full  mb-[0rem]">
             <img
               className="relative w-[45vw] md:w-[25vw] 2xl:w-[10vw] h-[30vh] 2xl:h-[25vh] z-0 -mr-[2rem] md:-mr-[3rem]"
               src={clinton}
@@ -181,4 +167,4 @@ const Landing = () => {
   );
 };
 
-export default Landing;
+export default LandingSmall;

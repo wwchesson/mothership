@@ -41,64 +41,63 @@ const OPTIONS: DonateOption[] = [
   },
 ];
 
-const DonateDropdown = ({ option, openId, setOpenId }: { option: DonateOption; openId: Method | null; setOpenId: (id: Method | null) => void }) => {
-  const open = openId === option.id;
-  const isMobile = /Mobi|Android/i.test(navigator.userAgent);
-
-  return (
-    <div className="border-b border-gray-900/20 last:border-0">
-      <button
-        className="w-full flex justify-between items-center py-2 text-xs font-semibold md:text-sm md:font-bold 2xl:text-lg 2xl:font-extrabold uppercase tracking-widest text-gray-900 hover:opacity-70 transition-opacity"
-        style={{ fontFamily: "Montserrat, sans-serif" }}
-        onClick={() => setOpenId(open ? null : option.id)}
-      >
-        {option.label}
-        <span className="text-xs md:text-sm 2xl:text-base">{open ? "▲" : "▼"}</span>
-      </button>
-
-      {open && (
-        <div className="pb-3 flex flex-col items-center gap-2">
-          {/* TODO: Replace with <img src={qrImage} /> once QR assets are added */}
-          <div className="bg-white/60 w-32 h-32 flex items-center justify-center text-xs text-gray-500 text-center p-2">
-            {option.qrPlaceholder}
-          </div>
-
-          {option.zelleFallback ? (
-            <p className="text-xs text-gray-700">{option.zelleFallback}</p>
-          ) : (
-            isMobile && option.deepLink && (
-              <a
-                href={option.deepLink}
-                className="bg-gray-900 text-white text-xs uppercase tracking-widest px-4 py-2 hover:bg-gray-700 transition-colors"
-                style={{ fontFamily: "Montserrat, sans-serif" }}
-              >
-                {option.deepLinkLabel}
-              </a>
-            )
-          )}
-        </div>
-      )}
-    </div>
-  );
-};
-
 const Donate = () => {
   const navigate = useNavigate();
   const [openId, setOpenId] = useState<Method | null>(null);
+  const isMobile = /Mobi|Android/i.test(navigator.userAgent);
+
+  const active = OPTIONS.find((o) => o.id === openId) ?? null;
 
   return (
-    <div className="flex flex-col gap-1" style={{ fontFamily: "Montserrat, sans-serif" }}>
-      {OPTIONS.map((opt) => (
-        <DonateDropdown key={opt.id} option={opt} openId={openId} setOpenId={setOpenId} />
-      ))}
-
-      <div className="mt-3 border-t border-gray-900/20 pt-3">
+    <div className="flex flex-row w-full  md:h-[25vh] 2xl:h-[32.5vh]" style={{ fontFamily: "Montserrat, sans-serif" }}>
+      {/* Left half — buttons */}
+      <div className="flex flex-col justify-center gap-2 w-1/2 pr-2">
+        {OPTIONS.map((opt) => (
+          <button
+            key={opt.id}
+            onClick={() => setOpenId(opt.id)}
+            className={`w-full py-2 text-xs font-semibold md:text-sm md:font-bold uppercase tracking-widest border transition-colors ${
+              openId === opt.id
+                ? "bg-gray-900 text-white border-gray-900"
+                : "text-gray-900 border-gray-900/20 hover:opacity-70"
+            }`}
+          >
+            {opt.label}
+          </button>
+        ))}
         <button
           onClick={() => navigate("/stripe")}
-          className="w-full bg-gray-900 text-white text-xs font-semibold md:text-sm md:font-bold 2xl:text-lg 2xl:font-extrabold uppercase tracking-widest py-2 hover:bg-gray-700 transition-colors"
+          className="w-full bg-[rgb(226_107_67)] text-white text-xs font-semibold md:text-sm md:font-bold uppercase tracking-widest py-2 hover:bg-gray-700 transition-colors mt-1"
         >
-          Donate by Card
+          By Card
         </button>
+      </div>
+
+      {/* Right half — QR panel */}
+      <div className="flex flex-col items-center justify-center w-1/2 pl-2">
+        {active ? (
+          <>
+            <p className="text-xs font-bold uppercase tracking-widest text-gray-900 mb-2">{active.label}</p>
+            {/* TODO: Replace with <img src={qrImage} /> once QR assets are added */}
+            <div className="bg-white/60 w-36 h-36 flex items-center justify-center text-xs text-gray-500 text-center p-2">
+              {active.qrPlaceholder}
+            </div>
+            {active.zelleFallback ? (
+              <p className="text-xs text-gray-700 mt-2">{active.zelleFallback}</p>
+            ) : (
+              isMobile && active.deepLink && (
+                <a
+                  href={active.deepLink}
+                  className="mt-2 bg-gray-900 text-white text-xs uppercase tracking-widest px-3 py-1.5 hover:bg-gray-700 transition-colors"
+                >
+                  {active.deepLinkLabel}
+                </a>
+              )
+            )}
+          </>
+        ) : (
+          <p className="text-xs text-gray-500 text-center uppercase tracking-widest">Select a method</p>
+        )}
       </div>
     </div>
   );

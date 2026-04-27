@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-const navLinks = ["tickets", "mission", "contact", "donate"];
+const navLinks = [ "mission", "contact", "donate", "tickets"];
 
 interface HamburgerMenuProps {
   onNavigate: (item: string) => void;

@@ -1,0 +1,9 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(npm install *)",
+      "Bash(cp \"c:/Users/wchesson/chessoncode/mothership/src/Landing.tsx\" \"c:/Users/wchesson/chessoncode/mothership/src/LandingBig.tsx\")",
+      "Bash(cp \"c:/Users/wchesson/chessoncode/mothership/src/Landing.tsx\" \"c:/Users/wchesson/chessoncode/mothership/src/LandingSmall.tsx\")"
+    ]
+  }
+}

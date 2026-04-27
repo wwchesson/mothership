@@ -14,12 +14,20 @@ const Contact = () => {
     setForm((prev) => ({ ...prev, [e.target.name]: e.target.value }));
   };
 
-  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: React.SyntheticEvent<HTMLFormElement>) => {
     e.preventDefault();
     setStatus("sending");
-    // TODO: Replace with actual EmailJS send call
-    // await emailjs.send(serviceId, templateId, form, publicKey);
-    setTimeout(() => setStatus("sent"), 1000); // placeholder
+    try {
+      const res = await fetch("/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(form),
+      });
+      if (!res.ok) throw new Error();
+      setStatus("sent");
+    } catch {
+      setStatus("error");
+    }
   };
 
   if (status === "sent") {
@@ -33,7 +41,7 @@ const Contact = () => {
   return (
     <form
       onSubmit={handleSubmit}
-      className="flex flex-col gap-2 md:gap-3 2xl:gap-4"
+      className="flex flex-col gap-2 md:gap-3 2xl:gap-2 2xl:h-[32.5vh]"
       style={{ fontFamily: "Montserrat, sans-serif" }}
     >
       <input
@@ -66,7 +74,7 @@ const Contact = () => {
       <button
         type="submit"
         disabled={status === "sending"}
-        className="bg-gray-900 text-white uppercase tracking-widest text-xs font-semibold md:text-sm md:font-bold 2xl:text-lg 2xl:font-extrabold py-2 2xl:py-3 hover:bg-gray-700 transition-colors disabled:opacity-50"
+        className="bg-gray-900 text-white uppercase tracking-widest text-xs flex justify-center items-center 2xl:h-[4vh] font-semibold md:text-sm md:font-bold 2xl:text-lg 2xl:font-extrabold py-2 2xl:py-3 hover:bg-gray-700 transition-colors disabled:opacity-50"
       >
         {status === "sending" ? "Sending..." : "Send"}
       </button>
