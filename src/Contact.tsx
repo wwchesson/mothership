@@ -1,11 +1,5 @@
 import { useState } from "react";
 
-// TODO: Install emailjs-com and add credentials to .env
-// npm install @emailjs/browser
-// VITE_EMAILJS_SERVICE_ID=service_...
-// VITE_EMAILJS_TEMPLATE_ID=template_...
-// VITE_EMAILJS_PUBLIC_KEY=...
-
 const Contact = () => {
   const [form, setForm] = useState({ name: "", email: "", message: "" });
   const [status, setStatus] = useState<"idle" | "sending" | "sent" | "error">("idle");
