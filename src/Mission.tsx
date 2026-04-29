@@ -3,7 +3,7 @@ import { pg1, pg2, pg3 } from "./misson.json";
 const Mission = () => {
   return (
     <div
-className="md:h-[23vh] 2xl:h-[30vh]"
+className="h-[24vh] md:h-[23vh] 2xl:h-[30vh]"
       style={{ fontFamily: "Montserrat, sans-serif" }}
     >
 <div className="h-full">

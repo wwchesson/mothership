@@ -3,7 +3,7 @@ import { useSearchParams } from "react-router-dom";
 import { useMediaQuery } from "react-responsive";
 import {
   UFO,
-  spacebg,
+ 
   MOTHERSHIP,
   sunrastamp,
   www,
@@ -12,6 +12,7 @@ import {
   butler,
   einstein,
 } from "./assets";
+
 import HamburgerMenu from "./HamburgerMenu";
 import Mission from "./Mission";
 import Contact from "./Contact";
@@ -92,7 +93,7 @@ const LandingSmall = () => {
     <main
       className="flex flex-col items-center h-screen bg-gray-100 overflow-x-hidden"
       style={{
-        backgroundImage: `url(${spacebg})`,
+        backgroundImage: `url('/spacebg.jpg')`,
         backgroundSize: "cover",
         backgroundPosition: "center",
       }}
